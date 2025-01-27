@@ -12,4 +12,11 @@ public class Addition extends MathObject {
     public String type() {
         return "Addition";
     }
+    // use for non-variable expressions
+    public MathObject evaluate() {
+        if((store1.type()=="Number")&&(store2.type()=="Number")) {
+            return null;
+        }
+        return null;
+    }
 }
