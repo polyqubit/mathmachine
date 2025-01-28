@@ -9,3 +9,6 @@ public class Test {
         System.out.println(e.value());
     }
 }
+
+// idea for simplifier : pattern matching
+// https://stackoverflow.com/questions/7540227/strategies-for-simplifying-math-expressions
