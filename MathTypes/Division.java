@@ -24,6 +24,13 @@ public class Division implements MathObject {
         return store1.value() / store2.value();
     }
 
+    public MathObject parameter1() {
+        return store1;
+    }
+    public MathObject parameter2() {
+        return store2;
+    }
+
     public String type() {
         return "Division";
     }
