@@ -11,6 +11,10 @@ public class Expression {
         top = m;
     }
 
+    public MathObject head() {
+        return top;
+    }
+
     public double value() {
         return top.value();
     }
