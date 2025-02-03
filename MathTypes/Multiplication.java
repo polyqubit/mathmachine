@@ -34,4 +34,12 @@ public class Multiplication implements MathObject {
     public String type() {
         return "Multiplication";
     }
+
+    public boolean equals(MathObject m) {
+        if(m.type()==this.type()) {
+            return this.store1.equals(m.parameter1())
+                && this.store2.equals(m.parameter2());
+        }
+        return false;
+    }
 }

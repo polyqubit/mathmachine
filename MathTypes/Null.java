@@ -15,4 +15,8 @@ public class Null implements MathObject {
     public String type() {
         return "Null";
     }
+
+    public boolean equals(MathObject m) {
+        return m.type() == this.type();
+    }
 }

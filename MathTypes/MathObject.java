@@ -8,4 +8,6 @@ public interface MathObject {
     public abstract MathObject parameter2();
 
     public abstract String type();
+
+    public abstract boolean equals(MathObject m);
 }

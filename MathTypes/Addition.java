@@ -27,11 +27,20 @@ public class Addition implements MathObject {
     public MathObject parameter1() {
         return store1;
     }
+
     public MathObject parameter2() {
         return store2;
     }
 
     public String type() {
         return "Addition";
+    }
+
+    public boolean equals(MathObject m) {
+        if(m.type()==this.type()) {
+            return this.store1.equals(m.parameter1())
+                && this.store2.equals(m.parameter2());
+        }
+        return false;
     }
 }

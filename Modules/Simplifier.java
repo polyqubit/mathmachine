@@ -17,6 +17,12 @@ public class Simplifier {
     }
 
     public void simplify() {
-        
+        boolean e = true;
+        while(e) {
+            e = false;
+            for(Rule r : ruleset) {
+                
+            }
+        }
     }
 }

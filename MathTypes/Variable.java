@@ -2,18 +2,25 @@ package MathTypes;
 
 public class Variable implements MathObject {
     private String token;
+    private double val;
 
-    // Warning: do not use default for Number
+    // Warning: do not use default
     public Variable() {
         token = "x";
+        val = 0;
     }
 
-    public Variable(String s) {
+    public Variable(String s, double d) {
         token = s;
+        val = d;
     }
 
     public double value() {
-        return 0;
+        return val;
+    }
+
+    public String name() {
+        return token;
     }
 
     // should not be used
@@ -25,6 +32,13 @@ public class Variable implements MathObject {
     }
 
     public String type() {
-        return "Number"; // remember to extend to integer, real, complex etc
+        return "Variable"; // remember to extend to integer, real, complex etc
+    }
+
+    public boolean equals(MathObject m) { // for simplification purposes, not evaluative
+        if(m.type()==this.type()) {
+            return this.token == ((Variable)m).name();
+        }
+        return false;
     }
 }
