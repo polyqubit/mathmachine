@@ -12,6 +12,7 @@ public class Rule {
         replace = conversion(r);
     }
 
+    // if this does not work, consider Object.equals recursive approach
     public MathObject apply(MathObject m) {
         if(traverse(m, search)) {
             return replace;

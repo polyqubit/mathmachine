@@ -20,12 +20,19 @@ public class Simplifier {
     }
 
     public void read(String path) throws FileNotFoundException {
-        BufferedReader br = new BufferedReader(new FileReader(path));
-        try {
-            br.readLine();
+        try(BufferedReader br = new BufferedReader(new FileReader(path))) {
+            String line = "";
+            line = br.readLine();
+            while(line != null) {
+                Rule r = new Rule(line.substring(0,line.indexOf("~")),
+                                  line.substring(line.indexOf("~")));
+                ruleset.add(r);
+                line = br.readLine();
+            }
         }
-        catch(Exception e) {}
-
+        catch(Exception e) {
+            System.err.println("error: " + e);
+        }
     }
 
     public void simplify(int max) {
