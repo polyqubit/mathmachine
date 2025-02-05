@@ -1,3 +1,4 @@
+package Modules;
 import java.util.*;
 
 public class Split {
@@ -19,6 +20,14 @@ public class Split {
                 terms.add(term);
                 start = i + 1;
             }
+
+            // if c is not an operator, it must be a variable or a number (or a user mistake)
+            // StringBuilder sb = new StringBuilder();
+            // do {
+            //     sb.append(input.charAt(i));
+            //     i++;
+            // } while((Character.isDigit(input.charAt(i)) || Character.isLetter(input.charAt(i))) && (i<input.length()));
+            // terms.add(sb.toString());
         }
 
         return terms;
