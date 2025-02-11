@@ -1,5 +1,7 @@
 package Modules;
 
+import java.util.ArrayList;
+
 import MathTypes.*;
 
 public class Rule {
@@ -34,6 +36,27 @@ public class Rule {
     }
 
     private MathObject conversion(String s) {
+        ArrayList<String> tokens = new ArrayList<>();
+        tokens = Split.splitString(s);
+        for(int i=0;i<tokens.size();i++) {
+            switch(tokens.get(i)) {
+                case "+":
+
+                    break;
+                case "-":
+
+                    break;
+                case "*":
+
+                    break;
+                case "/":
+
+                    break;
+                case "?":
+
+                    break;
+            }
+        }
         return new Null();
     }
 }
