@@ -35,6 +35,7 @@ public class Simplifier {
         }
     }
 
+    // TODO: store previously used Rule to prevent immediate application of its inverse; implement inverses
     public void simplify(int max) {
         boolean applied = true;
         int c = 0;
