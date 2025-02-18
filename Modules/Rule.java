@@ -1,6 +1,7 @@
 package Modules;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import MathTypes.*;
 
@@ -37,6 +38,8 @@ public class Rule {
 
     private MathObject conversion(String s) {
         ArrayList<String> tokens = new ArrayList<>();
+        ArrayList<String> output = new ArrayList<>();
+        Stack<String> op = new Stack<>();
         tokens = Split.splitString(s);
         for(int i=0;i<tokens.size();i++) {
             switch(tokens.get(i)) {
@@ -52,8 +55,18 @@ public class Rule {
                 case "/":
 
                     break;
-                case "?":
-
+                case "(":
+                    op.push("(");
+                    break;
+                case ")":
+                    while(!op.peek().equals("(") || !op.empty()) {
+                        output.add(op.pop());
+                    }
+                    op.pop(); // remove "("
+                    break;
+                // assumed to be number/variable
+                default:
+                    output.add(tokens.get(i));
                     break;
             }
         }
