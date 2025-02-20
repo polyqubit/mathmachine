@@ -44,7 +44,11 @@ public class Rule {
         for(int i=0;i<tokens.size();i++) {
             switch(tokens.get(i)) {
                 case "+":
-
+                    while(!op.peek().equals("(")
+                        &&!op.peek().equals("-")
+                        &&!op.peek().equals("+")) {
+                            output.add(op.pop());
+                    }
                     break;
                 case "-":
 
