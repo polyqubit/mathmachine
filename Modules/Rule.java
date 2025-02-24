@@ -43,21 +43,33 @@ public class Rule {
         tokens = Split.splitString(s);
         for(int i=0;i<tokens.size();i++) {
             switch(tokens.get(i)) {
-                case "+":
+                case "+": // precedence 2
+                case "-": // precedence 2
                     while(!op.peek().equals("(")
-                        &&!op.peek().equals("-")
-                        &&!op.peek().equals("+")) {
+                        &&!op.peek().equals("+")
+                        &&!op.peek().equals("-")) {
                             output.add(op.pop());
                     }
+                    op.add(tokens.get(i));
                     break;
-                case "-":
-
+                case "*": // precedence 3
+                case "/": // precedence 3   
+                    while(!op.peek().equals("(")
+                        &&!op.peek().equals("+")
+                        &&!op.peek().equals("-")
+                        &&!op.peek().equals("*")
+                        &&!op.peek().equals("/")
+                        &&!op.peek().equals("^")) {
+                            output.add(op.pop());
+                    }
+                    op.add(tokens.get(i));
                     break;
-                case "*":
-
-                    break;
-                case "/":
-
+                case "^": // precedence 4, left-associative
+                    while(!op.peek().equals("(")
+                        &&!op.peek().equals("^")) {
+                            output.add(op.pop());
+                    }
+                    op.add(tokens.get(i));
                     break;
                 case "(":
                     op.push("(");
