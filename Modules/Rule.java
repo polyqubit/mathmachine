@@ -58,8 +58,7 @@ public class Rule {
                         &&!op.peek().equals("+")
                         &&!op.peek().equals("-")
                         &&!op.peek().equals("*")
-                        &&!op.peek().equals("/")
-                        &&!op.peek().equals("^")) {
+                        &&!op.peek().equals("/")) {
                             output.add(op.pop());
                     }
                     op.add(tokens.get(i));
