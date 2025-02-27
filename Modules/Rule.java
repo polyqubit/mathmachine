@@ -43,8 +43,15 @@ public class Rule {
         tokens = Split.splitString(s);
         for(int i=0;i<tokens.size();i++) {
             switch(tokens.get(i)) {
-                case "+": // precedence 2
-                case "-": // precedence 2
+                case "+": // precedence 2, left
+                case "-": // precedence 2, left
+                    while(!op.peek().equals("(")) {
+                            output.add(op.pop());
+                    }
+                    op.add(tokens.get(i));
+                    break;
+                case "*": // precedence 3, left
+                case "/": // precedence 3, left
                     while(!op.peek().equals("(")
                         &&!op.peek().equals("+")
                         &&!op.peek().equals("-")) {
@@ -52,19 +59,12 @@ public class Rule {
                     }
                     op.add(tokens.get(i));
                     break;
-                case "*": // precedence 3
-                case "/": // precedence 3   
+                case "^": // precedence 4, right
                     while(!op.peek().equals("(")
                         &&!op.peek().equals("+")
                         &&!op.peek().equals("-")
                         &&!op.peek().equals("*")
-                        &&!op.peek().equals("/")) {
-                            output.add(op.pop());
-                    }
-                    op.add(tokens.get(i));
-                    break;
-                case "^": // precedence 4, left-associative
-                    while(!op.peek().equals("(")
+                        &&!op.peek().equals("/")
                         &&!op.peek().equals("^")) {
                             output.add(op.pop());
                     }
@@ -84,6 +84,9 @@ public class Rule {
                     output.add(tokens.get(i));
                     break;
             }
+        }
+        for(String ss : output) {
+            System.out.print(s+" ");
         }
         return new Null();
     }
