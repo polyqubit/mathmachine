@@ -28,36 +28,45 @@ public class Test {
             switch(tokens.get(i)) {
                 case "+": // precedence 2, left
                 case "-": // precedence 2, left
-                    while(!op.peek().equals("(")) {
-                            output.add(op.pop());
+                    if(!op.empty()) {
+                        while(!op.peek().equals("(")) {
+                                output.add(op.pop());
+                                if(op.empty()) { break; } // breaks out of all?
+                        }
                     }
                     op.add(tokens.get(i));
                     break;
                 case "*": // precedence 3, left
                 case "/": // precedence 3, left
-                    while(!op.peek().equals("(")
-                        &&!op.peek().equals("+")
-                        &&!op.peek().equals("-")) {
-                            output.add(op.pop());
+                    if(!op.empty()) {
+                        while(!op.peek().equals("(")
+                            &&!op.peek().equals("+")
+                            &&!op.peek().equals("-")) {
+                                output.add(op.pop());
+                                if(op.empty()) { break; }
+                        }
                     }
                     op.add(tokens.get(i));
                     break;
                 case "^": // precedence 4, right
-                    while(!op.peek().equals("(")
-                        &&!op.peek().equals("+")
-                        &&!op.peek().equals("-")
-                        &&!op.peek().equals("*")
-                        &&!op.peek().equals("/")
-                        &&!op.peek().equals("^")) {
-                            output.add(op.pop());
+                    if(!op.empty()) {
+                        while(!op.peek().equals("(")
+                            &&!op.peek().equals("+")
+                            &&!op.peek().equals("-")
+                            &&!op.peek().equals("*")
+                            &&!op.peek().equals("/")
+                            &&!op.peek().equals("^")) {
+                                output.add(op.pop());
+                                if(op.empty()) { break; }
+                        }
                     }
                     op.add(tokens.get(i));
                     break;
                 case "(":
                     op.push("(");
                     break;
-                case ")":
-                    while(!op.peek().equals("(") && !op.empty()) {
+                case ")": // assume this is never a first token
+                    while(!op.peek().equals("(")) {
                         output.add(op.pop());
                     }
                     op.pop(); // remove "("
@@ -75,8 +84,11 @@ public class Test {
                     break;
             }
         }
+        while(!op.empty()) {
+            output.add(op.pop());
+        }
         for(String ss : output) {
-            System.out.print(s+" ");
+            System.out.print(ss+" ");
         }
         return new Null();
     }
