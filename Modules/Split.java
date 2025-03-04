@@ -22,17 +22,17 @@ public class Split {
             //     start = i + 1;
             // }
 
-            // sb(skyblock) is an easy(to read) method for combining characters
+            // sb(skyblock) is an easy method for combining characters
             StringBuilder sb = new StringBuilder();
             while(true) {
                 sb.append(input.charAt(i));
-                if(!(Character.isDigit(input.charAt(i)) || Character.isLetter(input.charAt(i)))) {
+                if(!Character.isLetterOrDigit(input.charAt(i))) {
                     // this happens if current digit is an operator(+,- etc)
                     // no special case for functions because the parser handles _ + name
                     break;
                 }
                 if(i<input.length()-1){
-                    if(!(Character.isDigit(input.charAt(i+1)) || Character.isLetter(input.charAt(i+1)))) {
+                    if(!Character.isLetterOrDigit(input.charAt(i+1))) {
                         // this happens if next digit is an operator(+,- etc)
                         break;
                     }

@@ -3,6 +3,7 @@ import java.util.Scanner;
 import java.util.Stack;
 
 import MathTypes.*;
+import MathTypes.Number;
 import Modules.Split;
 
 public class Test {
@@ -27,11 +28,11 @@ public class Test {
             p("expressions such as -n or n! are not valid, do _neg(n) or _factorial(n) instead\n");
             p("mismatched parentheses and operators are not handled, please confirm validity of infix string\n");
             p("enter infix expression:\n");
-            conversion(sc.nextLine());
+            parse(sc.nextLine());
         }
     }
 
-    static MathObject conversion(String s) {
+    static ArrayList<String> parse(String s) {
         ArrayList<String> tokens = new ArrayList<>();
         ArrayList<String> output = new ArrayList<>();
         Stack<String> op = new Stack<>();
@@ -118,10 +119,9 @@ public class Test {
                     break;
                 // assumed to be number/variable
                 default:
-                    if (!Character.isDigit(tokens.get(i).charAt(0))
-                            && !Character.isAlphabetic(tokens.get(i).charAt(0))) {
+                    if (!Character.isLetterOrDigit(tokens.get(i).charAt(0))) {
                         System.out.println("Invalid symbol \"" + tokens.get(i) + "\"");
-                        return new Null();
+                        return null;
                     }
                     output.add(tokens.get(i));
                     break;
@@ -132,6 +132,22 @@ public class Test {
         }
         for (String ss : output) {
             System.out.print(ss + " ");
+        }
+        convert(output);
+        return output;
+    }
+    
+    static MathObject convert(ArrayList<String> in) {
+        // ArrayList<MathObject> temp = new ArrayList<>();
+        Stack<MathObject> values = new Stack<>();
+        for(int i=0;i<in.size();i++) {
+            char c = in.get(i).charAt(0);
+            if(Character.isLetter(c)) {
+                values.push(new Variable(in.get(i)));
+            }
+            else if(Character.isDigit(c)) {
+                values.push(new Number(Double.parseDouble(in.get(i))));
+            }
         }
         return new Null();
     }

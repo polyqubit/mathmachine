@@ -3,16 +3,34 @@ package MathTypes;
 public class Variable implements MathObject {
     private String token;
     private double val;
+    private boolean assigned;
 
     // Warning: do not use default
     public Variable() {
         token = "x";
         val = 0;
+        assigned = false;
+    }
+
+    public Variable(String s) {
+        token = s;
+        val = 0;
+        assigned = false;
     }
 
     public Variable(String s, double d) {
         token = s;
         val = d;
+        assigned = true;
+    }
+
+    public void assign(double d) {
+        val = d;
+        assigned = true;
+    }
+
+    public boolean assigned() {
+        return assigned;
     }
 
     public double value() {
