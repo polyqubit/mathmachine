@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -139,7 +140,10 @@ public class Test {
     
     static MathObject convert(ArrayList<String> in) {
         // ArrayList<MathObject> temp = new ArrayList<>();
+        HashMap<String, Integer> funcs = new HashMap<>();
+        funcs.put("_neg", 1);
         Stack<MathObject> values = new Stack<>();
+        ArrayList<MathObject> temps = new ArrayList<>();
         for(int i=0;i<in.size();i++) {
             char c = in.get(i).charAt(0);
             if(Character.isLetter(c)) {
@@ -147,6 +151,18 @@ public class Test {
             }
             else if(Character.isDigit(c)) {
                 values.push(new Number(Double.parseDouble(in.get(i))));
+            }
+            else if(c=='_') {
+                if(funcs.containsKey(in.get(i))) {
+                    for(int k=0;k<funcs.get(in.get(i));k++) {
+                        temps.add(values.pop());
+                    }
+                    switch(in.get(i)) {
+                        case "neg":
+                            values.add(new Subtraction(new Number(0),temps.get(0)));
+                            break;
+                    }
+                }
             }
         }
         return new Null();
