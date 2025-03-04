@@ -86,7 +86,7 @@ public class Rule {
             }
         }
         for(String ss : output) {
-            System.out.print(s+" ");
+            System.out.print(ss+" ");
         }
         return new Null();
     }

@@ -28,6 +28,7 @@ public class Split {
                 sb.append(input.charAt(i));
                 if(!(Character.isDigit(input.charAt(i)) || Character.isLetter(input.charAt(i)))) {
                     // this happens if current digit is an operator(+,- etc)
+                    // no special case for functions because the parser handles _ + name
                     break;
                 }
                 if(i<input.length()-1){
