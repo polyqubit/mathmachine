@@ -11,7 +11,7 @@ public class Aron {
 
             ArrayList<String> switx = new ArrayList<>();
             // switx = ohio.splitString(in);
-            switx = Split.splitString(in);
+            switx = Split.parse(in, true);
 
             for (int i = 0; i < switx.size(); i++) {
                 System.out.println(switx.get(i));

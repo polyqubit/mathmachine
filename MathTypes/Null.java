@@ -16,6 +16,10 @@ public class Null implements MathObject {
         return "Null";
     }
 
+    public String name() {
+        return "Null";
+    }
+
     public boolean equals(MathObject m) {
         return m.type() == this.type();
     }

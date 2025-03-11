@@ -2,8 +2,113 @@ package Modules;
 import java.util.*;
 
 public class Split {
+    public static ArrayList<String> parse(String s, boolean print) {
+        ArrayList<String> tokens = new ArrayList<>();
+        ArrayList<String> output = new ArrayList<>();
+        Stack<String> op = new Stack<>();
+        tokens = Split.splitString(s);
+        // for(String ss : tokens) {
+        // p(ss + " ");
+        // }
+        // p("\n");
+        for (int i = 0; i < tokens.size(); i++) {
+            switch (tokens.get(i)) {
+                case "+": // precedence 2, left
+                case "-": // precedence 2, left
+                    if (!op.empty()) {
+                        while (!op.peek().equals("(")) {
+                            output.add(op.pop());
+                            if (op.empty()) {
+                                break;
+                            }
+                        }
+                    }
+                    op.add(tokens.get(i));
+                    break;
+                case "*": // precedence 3, left
+                case "/": // precedence 3, left
+                    if (!op.empty()) {
+                        while (!op.peek().equals("(")
+                                && !op.peek().equals("+")
+                                && !op.peek().equals("-")) {
+                            output.add(op.pop());
+                            if (op.empty()) {
+                                break;
+                            }
+                        }
+                    }
+                    op.add(tokens.get(i));
+                    break;
+                case "^": // precedence 4, right
+                    if (!op.empty()) {
+                        while (!op.peek().equals("(")
+                                && !op.peek().equals("+")
+                                && !op.peek().equals("-")
+                                && !op.peek().equals("*")
+                                && !op.peek().equals("/")
+                                && !op.peek().equals("^")) {
+                            output.add(op.pop());
+                            if (op.empty()) {
+                                break;
+                            }
+                        }
+                    }
+                    op.add(tokens.get(i));
+                    break;
+                case "(":
+                    op.push("(");
+                    break;
+                case ")": // assume this is never a first token
+                    while (!op.peek().equals("(")) {
+                        output.add(op.pop());
+                    }
+                    op.pop(); // remove "("
+                    if (!op.empty()) {
+                        if (op.peek().charAt(0) == '_') { // function
+                            output.add(op.pop());
+                        }
+                    }
+                    break;
+                case ",": // for functions
+                    if (!op.empty()) {
+                        while (!op.peek().equals("(")) {
+                            output.add(op.pop());
+                            if (op.empty()) {
+                                break;
+                            }
+                        }
+                    }
+                    break;
+                case "_": // function
+                    op.push("_" + tokens.get(i + 1));
+                    i++;
+                    break;
+                case ".": // decimal
+                    output.set(output.size() - 1, output.get(output.size() - 1) + "." + tokens.get(i + 1));
+                    i++;
+                    break;
+                // assumed to be number/variable
+                default:
+                    if (!Character.isLetterOrDigit(tokens.get(i).charAt(0))) {
+                        System.out.println("Invalid symbol \"" + tokens.get(i) + "\"");
+                        return null;
+                    }
+                    output.add(tokens.get(i));
+                    break;
+            }
+        }
+        while (!op.empty()) {
+            output.add(op.pop());
+        }
+        if(print) {
+            for (String ss : output) {
+                System.out.print(ss + " ");
+            }
+        }
+        return output;
+    }
 
-    public static ArrayList<String> splitString(String input) {
+    private static ArrayList<String> splitString(String input) {
         ArrayList<String> terms = new ArrayList<>();
         // int start = 0;
         input = input.replaceAll(" ", "");

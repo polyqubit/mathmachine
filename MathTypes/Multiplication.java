@@ -32,7 +32,11 @@ public class Multiplication implements MathObject {
     }
 
     public String type() {
-        return "Multiplication";
+        return "Operator";
+    }
+    
+    public String name() {
+        return "Mult";
     }
 
     public boolean equals(MathObject m) {

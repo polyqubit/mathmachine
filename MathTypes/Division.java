@@ -32,7 +32,11 @@ public class Division implements MathObject {
     }
 
     public String type() {
-        return "Division";
+        return "Operator";
+    }
+    
+    public String name() {
+        return "Div";
     }
 
     public boolean equals(MathObject m) {

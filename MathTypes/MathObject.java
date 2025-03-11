@@ -9,5 +9,7 @@ public interface MathObject {
 
     public abstract String type();
 
+    public abstract String name();
+
     public abstract boolean equals(MathObject m);
 }

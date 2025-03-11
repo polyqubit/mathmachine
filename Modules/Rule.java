@@ -40,54 +40,8 @@ public class Rule {
         ArrayList<String> tokens = new ArrayList<>();
         ArrayList<String> output = new ArrayList<>();
         Stack<String> op = new Stack<>();
-        tokens = Split.splitString(s);
-        for(int i=0;i<tokens.size();i++) {
-            switch(tokens.get(i)) {
-                case "+": // precedence 2, left
-                case "-": // precedence 2, left
-                    while(!op.peek().equals("(")) {
-                            output.add(op.pop());
-                    }
-                    op.add(tokens.get(i));
-                    break;
-                case "*": // precedence 3, left
-                case "/": // precedence 3, left
-                    while(!op.peek().equals("(")
-                        &&!op.peek().equals("+")
-                        &&!op.peek().equals("-")) {
-                            output.add(op.pop());
-                    }
-                    op.add(tokens.get(i));
-                    break;
-                case "^": // precedence 4, right
-                    while(!op.peek().equals("(")
-                        &&!op.peek().equals("+")
-                        &&!op.peek().equals("-")
-                        &&!op.peek().equals("*")
-                        &&!op.peek().equals("/")
-                        &&!op.peek().equals("^")) {
-                            output.add(op.pop());
-                    }
-                    op.add(tokens.get(i));
-                    break;
-                case "(":
-                    op.push("(");
-                    break;
-                case ")":
-                    while(!op.peek().equals("(") || !op.empty()) {
-                        output.add(op.pop());
-                    }
-                    op.pop(); // remove "("
-                    break;
-                // assumed to be number/variable
-                default:
-                    output.add(tokens.get(i));
-                    break;
-            }
-        }
-        for(String ss : output) {
-            System.out.print(ss+" ");
-        }
+        tokens = Split.parse(s, false);
+        
         return new Null();
     }
 }

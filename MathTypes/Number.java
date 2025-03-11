@@ -25,7 +25,11 @@ public class Number implements MathObject {
     }
 
     public String type() {
-        return "Number"; // remember to extend to integer, real, complex etc
+        return "Number";
+    }
+
+    public String name() {
+        return "Number";  // remember to extend to integer, real, complex etc
     }
 
     public boolean equals(MathObject m) { // for simplification purposes, not evaluative

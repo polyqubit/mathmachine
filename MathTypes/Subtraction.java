@@ -32,7 +32,11 @@ public class Subtraction implements MathObject {
     }
 
     public String type() {
-        return "Subtraction";
+        return "Operator";
+    }
+
+    public String name() {
+        return "Sub";
     }
 
     public boolean equals(MathObject m) {
