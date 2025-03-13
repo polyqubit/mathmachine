@@ -1,27 +1,27 @@
 package MathTypes;
 
-public class Multiplication implements MathObject {
+public class Div implements MathObject {
     private MathObject store1;
     private MathObject store2;
 
     // should not be used
-    public Multiplication() {
+    public Div() {
         store1 = new Null();
         store2 = new Null();
     }
 
-    public Multiplication(MathObject a, MathObject b) {
+    public Div(MathObject a, MathObject b) {
         store1 = a;
         store2 = b;
     }
 
-    public Multiplication(double a, double b) {
+    public Div(double a, double b) {
         store1 = new Number(a);
         store2 = new Number(b);
     }
 
     public double value() {
-        return store1.value() * store2.value();
+        return store1.value() / store2.value();
     }
 
     public MathObject parameter1() {
@@ -36,7 +36,7 @@ public class Multiplication implements MathObject {
     }
     
     public String name() {
-        return "Mult";
+        return "Div";
     }
 
     public boolean equals(MathObject m) {

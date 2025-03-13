@@ -1,21 +1,21 @@
 package MathTypes;
 
-public class Subtraction implements MathObject {
+public class Sub implements MathObject {
     private MathObject store1;
     private MathObject store2;
 
     // should not be used
-    public Subtraction() {
+    public Sub() {
         store1 = new Null();
         store2 = new Null();
     }
 
-    public Subtraction(MathObject a, MathObject b) {
+    public Sub(MathObject a, MathObject b) {
         store1 = a;
         store2 = b;
     }
 
-    public Subtraction(double a, double b) {
+    public Sub(double a, double b) {
         store1 = new Number(a);
         store2 = new Number(b);
     }
