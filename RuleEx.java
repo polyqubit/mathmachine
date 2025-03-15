@@ -58,7 +58,7 @@ public class RuleEx {
                     }
                     switch(in.get(i)) {
                         case "neg":
-                            values.add(new Sub(new Number(0),temps.get(0)));
+                            values.add(new Op_Sub(new Number(0),temps.get(0)));
                             break;
                     }
                     for(int k=0;k<argnum;k++) {
@@ -71,19 +71,19 @@ public class RuleEx {
                 temps.add(values.pop()); // first item(1)
                 switch(c) {
                     case '+':
-                        values.add(new Add(temps.get(1),temps.get(0)));
+                        values.add(new Op_Add(temps.get(1),temps.get(0)));
                         break;
                     case '-':
-                        values.add(new Sub(temps.get(1),temps.get(0)));
+                        values.add(new Op_Sub(temps.get(1),temps.get(0)));
                         break;
                     case '*':
-                        values.add(new Mult(temps.get(1),temps.get(0)));
+                        values.add(new Op_Mult(temps.get(1),temps.get(0)));
                         break;
                     case '/':
-                        values.add(new Div(temps.get(1),temps.get(0)));
+                        values.add(new Op_Div(temps.get(1),temps.get(0)));
                         break;
                     case '^':
-                        values.add(new Pow(temps.get(1),temps.get(0)));
+                        values.add(new Op_Pow(temps.get(1),temps.get(0)));
                         break;
                 }
                 temps.clear();

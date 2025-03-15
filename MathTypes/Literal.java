@@ -17,14 +17,6 @@ public class Literal implements MathObject {
         return n;
     }
 
-    // should not be used
-    public MathObject parameter1() {
-        return new Null();
-    }
-    public MathObject parameter2() {
-        return new Null();
-    }
-
     public String type() {
         return "Number";
     }

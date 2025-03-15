@@ -1,27 +1,27 @@
 package MathTypes;
 
-public class Mult implements MathObject {
+public class Op_Div extends Operator {
     private MathObject store1;
     private MathObject store2;
 
     // should not be used
-    public Mult() {
+    public Op_Div() {
         store1 = new Null();
         store2 = new Null();
     }
 
-    public Mult(MathObject a, MathObject b) {
+    public Op_Div(MathObject a, MathObject b) {
         store1 = a;
         store2 = b;
     }
 
-    public Mult(double a, double b) {
+    public Op_Div(double a, double b) {
         store1 = new Number(a);
         store2 = new Number(b);
     }
 
     public double value() {
-        return store1.value() * store2.value();
+        return store1.value() / store2.value();
     }
 
     public MathObject parameter1() {
@@ -36,14 +36,6 @@ public class Mult implements MathObject {
     }
     
     public String name() {
-        return "Mult";
-    }
-
-    public boolean equals(MathObject m) {
-        if(m.type()==this.type()) {
-            return this.store1.equals(m.parameter1())
-                && this.store2.equals(m.parameter2());
-        }
-        return false;
+        return "Div";
     }
 }

@@ -41,9 +41,16 @@ public class Rule {
         // else if(cur.name() == "Number") { // also variable, also functionality for both literal and expression Number search
         //     return s.name() == "Number"; // eg. false if any number except 1
         // }
-        boolean b1 = traverse(cur.parameter1(), s.parameter1());
-        boolean b2 = traverse(cur.parameter2(), s.parameter2());
-        return (b1&&b2);
+
+        if(cur.type()=="Operator"){
+            Operator ocur = (Operator)cur;
+            Operator os = (Operator)s;
+            boolean b1 = traverse(ocur.parameter1(), os.parameter1());
+            boolean b2 = traverse(ocur.parameter2(), os.parameter2());
+            return (b1&&b2);
+        }
+        // TODO: need case for function
+        return false;
     }
 
     // Number -> Literal(order Numbers in rule description)
@@ -78,7 +85,7 @@ public class Rule {
                     }
                     switch(in.get(i)) {
                         case "neg":
-                            values.add(new Sub(new Number(0),temps.get(0)));
+                            values.add(new Op_Sub(new Number(0),temps.get(0)));
                             break;
                     }
                     for(int k=0;k<argnum;k++) {
@@ -91,19 +98,19 @@ public class Rule {
                 temps.add(values.pop()); // first item(1)
                 switch(c) {
                     case '+':
-                        values.add(new Add(temps.get(1),temps.get(0)));
+                        values.add(new Op_Add(temps.get(1),temps.get(0)));
                         break;
                     case '-':
-                        values.add(new Sub(temps.get(1),temps.get(0)));
+                        values.add(new Op_Sub(temps.get(1),temps.get(0)));
                         break;
                     case '*':
-                        values.add(new Mult(temps.get(1),temps.get(0)));
+                        values.add(new Op_Mult(temps.get(1),temps.get(0)));
                         break;
                     case '/':
-                        values.add(new Div(temps.get(1),temps.get(0)));
+                        values.add(new Op_Div(temps.get(1),temps.get(0)));
                         break;
                     case '^':
-                        values.add(new Pow(temps.get(1),temps.get(0)));
+                        values.add(new Op_Pow(temps.get(1),temps.get(0)));
                         break;
                 }
                 temps.clear();

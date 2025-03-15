@@ -17,11 +17,12 @@ public class MathPrinter {
                 break;
             default: // assume some sort of function(+,-,cos etc)
                 if(m.type()=="Operator") {
-                    p(m.name());
+                    Operator o = (Operator)m;
+                    p(o.name());
                     p("(");
-                    traverse(m.parameter1()); // will need to extend to array of parameters for function
+                    traverse(o.parameter1()); // will need to extend to array of parameters for function
                     p(", ");
-                    traverse(m.parameter2());
+                    traverse(o.parameter2());
                     p(")");
                 }
                 break;

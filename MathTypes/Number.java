@@ -3,6 +3,9 @@ package MathTypes;
 public class Number implements MathObject {
     private double n;
 
+    // TODO: number standard object, integer/real/complex etc descendants
+    // also reconsider Literal
+
     // Warning: do not use default for Number
     public Number() {
         n = 0;
@@ -14,14 +17,6 @@ public class Number implements MathObject {
 
     public double value() {
         return n;
-    }
-
-    // should not be used
-    public MathObject parameter1() {
-        return new Null();
-    }
-    public MathObject parameter2() {
-        return new Null();
     }
 
     public String type() {

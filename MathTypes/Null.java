@@ -5,13 +5,6 @@ public class Null implements MathObject {
         return 0;
     }
 
-    public MathObject parameter1() {
-        return null;
-    }
-    public MathObject parameter2() {
-        return null;
-    }
-
     public String type() {
         return "Null";
     }

@@ -1,21 +1,21 @@
 package MathTypes;
 
-public class Sub implements MathObject {
+public class Op_Sub extends Operator {
     private MathObject store1;
     private MathObject store2;
 
     // should not be used
-    public Sub() {
+    public Op_Sub() {
         store1 = new Null();
         store2 = new Null();
     }
 
-    public Sub(MathObject a, MathObject b) {
+    public Op_Sub(MathObject a, MathObject b) {
         store1 = a;
         store2 = b;
     }
 
-    public Sub(double a, double b) {
+    public Op_Sub(double a, double b) {
         store1 = new Number(a);
         store2 = new Number(b);
     }
@@ -37,13 +37,5 @@ public class Sub implements MathObject {
 
     public String name() {
         return "Sub";
-    }
-
-    public boolean equals(MathObject m) {
-        if(m.type()==this.type()) {
-            return this.store1.equals(m.parameter1())
-                && this.store2.equals(m.parameter2());
-        }
-        return false;
     }
 }

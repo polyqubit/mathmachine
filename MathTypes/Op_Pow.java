@@ -1,27 +1,27 @@
 package MathTypes;
 
-public class Div implements MathObject {
+public class Op_Pow extends Operator {
     private MathObject store1;
     private MathObject store2;
 
     // should not be used
-    public Div() {
+    public Op_Pow() {
         store1 = new Null();
         store2 = new Null();
     }
 
-    public Div(MathObject a, MathObject b) {
+    public Op_Pow(MathObject a, MathObject b) { // a^b
         store1 = a;
         store2 = b;
     }
 
-    public Div(double a, double b) {
+    public Op_Pow(double a, double b) {
         store1 = new Number(a);
         store2 = new Number(b);
     }
 
     public double value() {
-        return store1.value() / store2.value();
+        return Math.pow(store1.value(),store2.value());
     }
 
     public MathObject parameter1() {
@@ -36,14 +36,6 @@ public class Div implements MathObject {
     }
     
     public String name() {
-        return "Div";
-    }
-
-    public boolean equals(MathObject m) {
-        if(m.type()==this.type()) {
-            return this.store1.equals(m.parameter1())
-                && this.store2.equals(m.parameter2());
-        }
-        return false;
+        return "Pow";
     }
 }

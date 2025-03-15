@@ -42,8 +42,9 @@ public class Operator implements MathObject {
 
     public boolean equals(MathObject m) {
         if(m.type()==this.type()) {
-            return this.store1.equals(m.parameter1())
-                && this.store2.equals(m.parameter2());
+            Operator o = (Operator)m;
+            return this.store1.equals(o.parameter1())
+                && this.store2.equals(o.parameter2());
         }
         return false;
     }

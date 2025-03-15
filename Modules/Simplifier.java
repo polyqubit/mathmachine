@@ -15,8 +15,8 @@ public class Simplifier {
         ruleset = new ArrayList<>();
     }
 
-    public void target(Expression e) {
-        top = e.head();
+    public void target(MathObject e) {
+        top = e;
     }
 
     public void read(String path) throws FileNotFoundException {

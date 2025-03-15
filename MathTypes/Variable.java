@@ -41,14 +41,6 @@ public class Variable implements MathObject {
         return token;
     }
 
-    // should not be used
-    public MathObject parameter1() {
-        return new Null();
-    }
-    public MathObject parameter2() {
-        return new Null();
-    }
-
     public String type() {
         return "Variable"; // remember to extend to integer, real, complex etc
     }
