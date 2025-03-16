@@ -4,20 +4,10 @@ public class Op_Sub extends Operator {
     private MathObject store1;
     private MathObject store2;
 
-    // should not be used
-    public Op_Sub() {
-        store1 = new Null();
-        store2 = new Null();
-    }
-
     public Op_Sub(MathObject a, MathObject b) {
         store1 = a;
         store2 = b;
-    }
-
-    public Op_Sub(double a, double b) {
-        store1 = new Number(a);
-        store2 = new Number(b);
+        check();
     }
 
     public double value() {
@@ -29,6 +19,22 @@ public class Op_Sub extends Operator {
     }
     public MathObject parameter2() {
         return store2;
+    }
+
+    private void check() {
+        if(store1.type()!="Number"
+        && store2.type()=="Number") {
+            MathObject temp = store1;
+            store1 = store2;
+            store2 = temp;
+        }
+    }
+
+    public void setP1(MathObject m) {
+        store1 = m;
+    }
+    public void setP2(MathObject m) {
+        store1 = m;
     }
 
     public String type() {

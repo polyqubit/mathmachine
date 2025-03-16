@@ -13,15 +13,12 @@ public class Operator implements MathObject {
     public Operator(MathObject a, MathObject b) {
         store1 = a;
         store2 = b;
+        check();
     }
 
-    public Operator(double a, double b) {
-        store1 = new Number(a);
-        store2 = new Number(b);
-    }
-
+    // should not be used
     public double value() {
-        return store1.value() + store2.value();
+        return 0;
     }
 
     public MathObject parameter1() {
@@ -31,7 +28,23 @@ public class Operator implements MathObject {
     public MathObject parameter2() {
         return store2;
     }
+
+    public void setP1(MathObject m) {
+        store1 = m;
+    }
+    public void setP2(MathObject m) {
+        store1 = m;
+    }
     
+    private void check() {
+        if(store1.type()!="Number"
+        && store2.type()=="Number") {
+            MathObject temp = store1;
+            store1 = store2;
+            store2 = temp;
+        }
+    }
+
     public String type() {
         return "Operator";
     }
