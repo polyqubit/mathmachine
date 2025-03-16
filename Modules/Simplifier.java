@@ -24,6 +24,9 @@ public class Simplifier {
             String line = "";
             line = br.readLine();
             while(line != null) {
+                if (line.charAt(0)=='?') {
+                    continue;
+                }
                 Rule r = new Rule(line.substring(0,line.indexOf("~")),
                                   line.substring(line.indexOf("~")));
                 ruleset.add(r);
