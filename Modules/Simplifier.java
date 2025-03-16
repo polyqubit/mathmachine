@@ -44,7 +44,7 @@ public class Simplifier {
             applied = false;
             for(Rule r : ruleset) {
                 m = top;
-                top = r.apply(top);
+                r.apply(top);
                 applied = !m.equals(top);
             }
             c++;
