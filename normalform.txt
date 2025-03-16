@@ -1,2 +1,3 @@
 move all literals to left side of any expression(param1)
 evaluator: for all addition, subtraction, and multiplication(leave division for the fraction simplifier), repeatedly convert A o B to Number
+possibly represent an expression as Null()

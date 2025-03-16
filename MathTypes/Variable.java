@@ -37,12 +37,20 @@ public class Variable implements MathObject {
         return val;
     }
 
-    public String name() {
+    public String token() {
         return token;
     }
 
+    public void settoken(String s) {
+        token = s;
+    }
+    
     public String type() {
         return "Variable"; // remember to extend to integer, real, complex etc
+    }
+
+    public String name() {
+        return token;
     }
 
     public boolean equals(MathObject m) { // for simplification purposes, not evaluative

@@ -15,6 +15,10 @@ public class Number implements MathObject {
         n = d;
     }
 
+    public void setval(double d) {
+        n = d;
+    }
+
     public double value() {
         return n;
     }
