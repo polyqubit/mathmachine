@@ -16,7 +16,7 @@ public class MathPrinter {
                 p(m.value()+"");
                 break;
             default: // assume some sort of function(+,-,cos etc)
-                if(m.type()=="Operator") {
+                if(m.type().equals("Operator")) {
                     Operator o = (Operator)m;
                     p(o.name());
                     p("(");

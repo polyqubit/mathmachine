@@ -22,8 +22,8 @@ public class Op_Sub extends Operator {
     }
 
     private void check() {
-        if(store1.type()!="Number"
-        && store2.type()=="Number") {
+        if(!store1.type().equals("Number")
+        && store2.type().equals("Number")) {
             MathObject temp = store1;
             store1 = store2;
             store2 = temp;

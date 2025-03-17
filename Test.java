@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import MathTypes.*;
+import Modules.MathPrinter;
 import Modules.Split;
 
 public class Test {
@@ -18,13 +20,23 @@ public class Test {
             // e = new Expression(new Division(new Multiplication(3,1),new
             // Multiplication(3,20))); // (3*1)/(3*20)
             // System.out.println(e.value());
-            p("\ninfix->postfix example\n");
-            p("functions are denoted as _func()\n");
-            p("expressions such as 2n or 2(n) are not valid, do 2*n or 2*(n) instead\n");
-            p("expressions such as -n or n! are not valid, do _neg(n) or _factorial(n) instead\n");
-            p("mismatched parentheses and operators are not handled, please confirm validity of infix string\n");
-            p("enter infix expression:\n");
-            Split.parse(sc.nextLine(), true);
+            
+            // p("\ninfix->postfix example\n");
+            // p("functions are denoted as _func()\n");
+            // p("expressions such as 2n or 2(n) are not valid, do 2*n or 2*(n) instead\n");
+            // p("expressions such as -n or n! are not valid, do _neg(n) or _factorial(n) instead\n");
+            // p("mismatched parentheses and operators are not handled, please confirm validity of infix string\n");
+            // p("enter infix expression:\n");
+            // Split.parse(sc.nextLine(), true);
+
+            MathObject m1 = Split.convert("2*(1+x)");
+            MathObject m2 = Split.convert("2*(1+x)");
+            MathPrinter.print(m1); p("\n");
+            MathPrinter.print(m2); p("\n");
+            System.out.println(m1.type());
+            System.out.println(m2.type());
+            p((m1).equals(m2)+"\n");
+            // p(((Operator)m1).equals((Operator)m2)+"\n");
         }
     }
 

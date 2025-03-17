@@ -59,7 +59,9 @@ public class Simplifier {
                 System.out.println("Exceeded limit of " + max + " steps");
                 return;
             }
-            System.out.println("Step " + c);
+            System.out.print("Step " + c + ": ");
+            MathPrinter.print(top);
+            System.out.println();
         }
     }
 }

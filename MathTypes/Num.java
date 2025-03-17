@@ -1,17 +1,17 @@
 package MathTypes;
 
-public class Number implements MathObject {
+public class Num implements MathObject {
     private double n;
 
     // TODO: number standard object, integer/real/complex etc descendants
     // also reconsider Literal
 
     // Warning: do not use default for Number
-    public Number() {
+    public Num() {
         n = 0;
     }
 
-    public Number(double d) {
+    public Num(double d) {
         n = d;
     }
 
@@ -32,8 +32,10 @@ public class Number implements MathObject {
     }
 
     public boolean equals(MathObject m) { // for simplification purposes, not evaluative
-        if(m.type()==this.type()) {
-            return this.n == ((Number)m).value();
+        System.out.println("(num)This obj: " + this.name());
+        System.out.println("(num)That obj: " + m.name());
+        if(m.type().equals(this.type())) {
+            return this.n == ((Num)m).value();
         }
         return false;
     }

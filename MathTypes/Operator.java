@@ -37,8 +37,8 @@ public class Operator implements MathObject {
     }
     
     private void check() {
-        if(store1.type()!="Number"
-        && store2.type()=="Number") {
+        if(!store1.type().equals("Number")
+        && store2.type().equals("Number")) {
             MathObject temp = store1;
             store1 = store2;
             store2 = temp;
@@ -54,7 +54,9 @@ public class Operator implements MathObject {
     }
 
     public boolean equals(MathObject m) {
-        if(m.type()==this.type()) {
+        System.out.println("(op)This obj: " + this.type());
+        System.out.println("(op)That obj: " + m.type());
+        if(m.type().equals(this.type())) {
             Operator o = (Operator)m;
             return this.store1.equals(o.parameter1())
                 && this.store2.equals(o.parameter2());

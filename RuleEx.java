@@ -2,7 +2,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import MathTypes.*;
-import MathTypes.Number; // required to avoid ambiguity with java.Number
 import Modules.MathPrinter;
 import Modules.Simplifier;
 import Modules.Split;

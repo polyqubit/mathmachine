@@ -10,7 +10,7 @@ import MathTypes.Op_Mult;
 import MathTypes.Op_Pow;
 import MathTypes.Op_Sub;
 import MathTypes.Variable;
-import MathTypes.Number;
+import MathTypes.Num;
 
 public class Split {
     public static MathObject convert(String raw) {
@@ -30,7 +30,7 @@ public class Split {
                 values.push(new Variable(in.get(i)));
             }
             else if(Character.isDigit(c)) {
-                values.push(new Number(Double.parseDouble(in.get(i))));
+                values.push(new Num(Double.parseDouble(in.get(i))));
             }
             else if(c=='_') {
                 if(funcs.containsKey(in.get(i))) {
@@ -40,10 +40,10 @@ public class Split {
                     }
                     switch(in.get(i)) {
                         case "_neg":
-                            values.add(new Op_Sub(new Number(0),temps.get(0)));
+                            values.add(new Op_Sub(new Num(0),temps.get(0)));
                             break;
                         case "_L":
-                            values.add(new Literal( ((Number)temps.get(0)).value() ));
+                            values.add(new Literal( ((Num)temps.get(0)).value() ));
                             break;
                         case "_any":
                             values.add(new Null());

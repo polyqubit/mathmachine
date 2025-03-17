@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 import MathTypes.*;
-import MathTypes.Number;
+import MathTypes.Num;
 
 public class Rule {
     private MathObject search;
@@ -33,42 +33,42 @@ public class Rule {
 
     // current target layer, current search(as in this.search) layer
     private boolean traverse(MathObject cur, MathObject s) {
-        if (s.name() == "Null") {
+        if (s.name().equals("Null")) {
             tempmaths.offer(cur);
             return true;
         }
 
-        if (!(s.name() == cur.name())) {
+        if (!(s.name().equals(cur.name()))) {
             return false;
         }
 
-        if (s.name() == "Variable") {
+        if (s.name().equals("Variable")) {
             if (!varmap.containsKey(s.name()) && !varmap.containsValue(cur.name())) {
                 varmap.put(s.name(), cur.name());
                 return true;
             }
-            if (cur.name() == varmap.get(s.name())) {
+            if (cur.name().equals(varmap.get(s.name()))) {
                 return true;
             }
             return false;
         }
 
-        if (s.name() == "Literal") { // searching for a specific number
+        if (s.name().equals("Literal")) { // searching for a specific number
             if (s.value() != cur.value()) {
                 return false;
             }
         }
 
-        else if (s.name() == "Number") { // searching for any number
+        else if (s.name().equals("Number")) { // searching for any number
             tempnums.offer(cur);
         }
 
-        // else if(cur.name() == "Number") { // also variable, also functionality for
+        // else if(cur.name().equals(Number")) { // also variable, also functionality for
         // both literal and expression Number search
-        // return s.name() == "Number"; // eg. false if any number except 1
+        // return s.name().equals("Number"); // eg. false if any number except 1
         // }
 
-        if (cur.type() == "Operator") {
+        if (cur.type().equals("Operator")) {
             Operator ocur = (Operator) cur;
             Operator os = (Operator) s;
             boolean b1 = traverse(ocur.parameter1(), os.parameter1());
@@ -82,29 +82,29 @@ public class Rule {
     // substitute traverse
     // current target layer, current replacement layer
     private void subtraverse(MathObject cur, MathObject r) {
-        if (r.name() == "Number") {
-            ((Number)cur).setval(tempnums.poll().value());
+        if (r.name().equals("Number")) {
+            ((Num)cur).setval(tempnums.poll().value());
             return;
         }
 
-        if (r.name() == "Variable") {
+        if (r.name().equals("Variable")) {
             ((Variable)cur).settoken(varmap.get(((Variable)r).token()));
             return;
         }
 
-        // else if(cur.name() == "Number") { // also variable, also functionality for
+        // else if(cur.name().equals("Number")) { // also variable, also functionality for
         // both literal and expression Number search
-        // return s.name() == "Number"; // eg. false if any number except 1
+        // return s.name().equals("Number"); // eg. false if any number except 1
         // }
 
-        if (cur.type() == "Operator") {
+        if (cur.type().equals("Operator")) {
             Operator ocur = (Operator) cur;
             Operator or = (Operator) r;
-            if(or.parameter1().name()=="Null") {
+            if(or.parameter1().name().equals("Null")) {
                 ocur.setP1(tempmaths.poll());
                 return;
             }
-            if(or.parameter2().name()=="Null") {
+            if(or.parameter2().name().equals("Null")) {
                 ocur.setP2(tempmaths.poll());
                 return;
             }
