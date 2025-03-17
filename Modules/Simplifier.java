@@ -25,7 +25,7 @@ public class Simplifier {
             line = br.readLine();
             System.out.println("\n");
             while(line != null) {
-                if ((line.length()>0)&&(line.charAt(0)=='?')) {
+                if ((line.length()<3)||(line.charAt(0)=='?')) {
                     line = br.readLine();
                     // System.out.println("\nSkipped line");
                     continue;

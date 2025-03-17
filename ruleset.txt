@@ -1,3 +1,5 @@
-? identity laws
 ? refer to function list
+
+? identity laws
 _L(0) + _any() ~ _any()
+_L(1) * _any() ~ _any()
