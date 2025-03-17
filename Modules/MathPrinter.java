@@ -15,6 +15,9 @@ public class MathPrinter {
             case "Number":
                 p(m.value()+"");
                 break;
+            case "Any":
+                p("#" + m.name());
+                break;
             default: // assume some sort of function(+,-,cos etc)
                 if(m.type().equals("Expression")) {
                     Expression e = (Expression)m;

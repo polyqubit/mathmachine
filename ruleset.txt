@@ -1,5 +1,9 @@
 ? refer to function list
 
-? identity laws
-_L(0) + _any() ~ _any()
-_L(1) * _any() ~ _any()
+? algebraic identities
+_L(0) + #A ~ #A
+_L(1) * #A ~ #A
+#A ^ _L(0) ~ _L(1)
+#A ^ _L(1) ~ #A
+#A * #C + #B * #C ~ (#A + #B) * #C
+#A * #B + #A * #C ~ (#B + #C) * #A

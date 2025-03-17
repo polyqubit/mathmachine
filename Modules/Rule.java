@@ -11,7 +11,7 @@ public class Rule {
     private MathObject search;
     private MathObject replace;
     private Queue<MathObject> tempnums;
-    private Queue<MathObject> tempmaths; // used to store any mathobject for replacement of Null in pattern
+    private HashMap<String, MathObject> mathmap; // used to store any mathobject for replacement of Any in pattern
     private HashMap<String, String> varmap; // sorted search, target
 
     // x+1 -> Addition(x,1)
@@ -19,7 +19,7 @@ public class Rule {
         search = Split.convert(s);
         replace = Split.convert(r);
         tempnums = new LinkedList<>();
-        tempmaths = new LinkedList<>();
+        mathmap = new HashMap<>();
         varmap = new HashMap<>();
         // .offer() adds, .poll() removes
     }
@@ -27,20 +27,21 @@ public class Rule {
     // if this does not work, consider Object.equals recursive approach
     public void apply(MathObject m) {
         if (traverse(m, search)) {
+            System.out.print("Starting rule subtraverse for "); MathPrinter.print(search); System.out.println();
             substitute(m);
         }
     }
 
     // current target layer, current search(as in this.search) layer
     private boolean traverse(MathObject cur, MathObject s) {
-        if (s.name().equals("Null")) {
+        if (s.type().equals("Any")) {
             System.out.println("success - found wildcard");
-            tempmaths.offer(cur);
+            mathmap.put(s.name(), cur);
             return true;
         }
 
         // Literal only appears in Rules; must be checked here
-        if (s.name().equals("Literal")) { // searching for a specific number
+        if (s.name().equals("Literal") && cur.name().equals("Number")) { // searching for a specific number
             if (s.value() != cur.value()) {
                 System.out.println("failed - wrong literal");
                 return false;
@@ -117,8 +118,9 @@ public class Rule {
         if (cur.type().equals("Expression")) {
             Expression ecur = (Expression) cur;
             Expression er = (Expression) r;
-            if(er.getexpr().name().equals("Null")) {
-                ecur.setexpr(tempmaths.poll());
+            if(er.getexpr().type().equals("Any")) {
+                ecur.setexpr(mathmap.get(er.getexpr().name()));
+                // System.out.println(mathmap.get(er.name()).name());
                 return;
             }
             subtraverse(ecur.getexpr(), er.getexpr());
@@ -127,12 +129,16 @@ public class Rule {
         if (cur.type().equals("Operator")) {
             Operator ocur = (Operator) cur;
             Operator or = (Operator) r;
-            if(or.parameter1().name().equals("Null")) {
-                ocur.setP1(tempmaths.poll());
-                return;
+            boolean skip = false;
+            if(or.parameter1().type().equals("Any")) {
+                ocur.setP1(mathmap.get(or.parameter1().name()));
+                skip = true;
             }
-            if(or.parameter2().name().equals("Null")) {
-                ocur.setP2(tempmaths.poll());
+            if(or.parameter2().type().equals("Any")) {
+                ocur.setP2(mathmap.get(or.parameter2().name()));
+                skip = true;
+            }
+            if(skip) {
                 return;
             }
             subtraverse(ocur.parameter1(), or.parameter1());

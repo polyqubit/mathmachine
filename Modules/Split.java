@@ -4,7 +4,7 @@ import java.util.*;
 import MathTypes.Expression;
 import MathTypes.Literal;
 import MathTypes.MathObject;
-import MathTypes.Null;
+import MathTypes.Any;
 import MathTypes.Op_Add;
 import MathTypes.Op_Div;
 import MathTypes.Op_Mult;
@@ -21,7 +21,7 @@ public class Split {
 
         funcs.put("_neg", 1);
         funcs.put("_L",1);
-        funcs.put("_any",0);
+        // funcs.put("_any",0);
 
         Stack<MathObject> values = new Stack<>();
         ArrayList<MathObject> temps = new ArrayList<>();
@@ -32,6 +32,10 @@ public class Split {
             }
             else if(Character.isDigit(c)) {
                 values.push(new Num(Double.parseDouble(in.get(i))));
+            }
+            else if(c=='#') {
+                values.add(new Any(in.get(i).substring(1)));
+                // System.out.println("Any token: " + in.get(i).substring(1));
             }
             else if(c=='_') {
                 if(funcs.containsKey(in.get(i))) {
@@ -46,9 +50,9 @@ public class Split {
                         case "_L":
                             values.add(new Literal( ((Num)temps.get(0)).value() ));
                             break;
-                        case "_any":
-                            values.add(new Null());
-                            break;
+                        // case "_any":
+                        //     values.add(new Null());
+                        //     break;
                     }
                     for(int k=0;k<argnum;k++) {
                         temps.clear();
@@ -81,6 +85,7 @@ public class Split {
                 temps.clear();
             }
         }
+        // System.out.println(values.get(0).name());
         return new Expression(values.get(0));
     }
     public static ArrayList<String> parse(String s, boolean print) {
@@ -162,6 +167,10 @@ public class Split {
                     break;
                 case "_": // function
                     op.push("_" + tokens.get(i + 1));
+                    i++;
+                    break;
+                case "#":
+                    op.push("#" + tokens.get(i + 1));
                     i++;
                     break;
                 case ".": // decimal

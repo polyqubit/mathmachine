@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 import MathTypes.*;
 import Modules.MathPrinter;
 import Modules.Split;
@@ -10,7 +8,7 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        try (Scanner sc = new Scanner(System.in)) {
+        // try (Scanner sc = new Scanner(System.in)) {
             // Simplifier s = new Simplifier();
             // s.target(null);
 
@@ -37,7 +35,7 @@ public class Test {
             System.out.println(m2.type());
             p((m1).equals(m2)+"\n");
             // p(((Operator)m1).equals((Operator)m2)+"\n");
-        }
+        // }
     }
 
     // static MathObject convert(ArrayList<String> in) {
