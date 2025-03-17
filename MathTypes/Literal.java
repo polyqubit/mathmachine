@@ -26,8 +26,8 @@ public class Literal implements MathObject {
     }
 
     public boolean equals(MathObject m) { // for simplification purposes, not evaluative
-        System.out.println("(lit)This obj: " + this.name());
-        System.out.println("(lit)That obj: " + m.name());
+        // System.out.println("(lit)This obj: " + this.name());
+        // System.out.println("(lit)That obj: " + m.name());
         if(m.type().equals(this.type())) {
             return this.n == ((Num)m).value();
         }

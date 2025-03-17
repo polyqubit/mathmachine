@@ -6,6 +6,7 @@ public class Operator implements MathObject {
 
     // should not be used
     public Operator() {
+        // System.out.println("Bad constructor used!");
         store1 = new Null();
         store2 = new Null();
     }
@@ -54,12 +55,13 @@ public class Operator implements MathObject {
     }
 
     public boolean equals(MathObject m) {
-        System.out.println("(op)This obj: " + this.type());
-        System.out.println("(op)That obj: " + m.type());
+        // System.out.println("(op)This obj: " + this.name());
+        // System.out.println("(op)That obj: " + m.name());
         if(m.type().equals(this.type())) {
+            // System.out.println("tried recursion on: " + parameter1().type() + ", " + parameter2().type());
             Operator o = (Operator)m;
-            return this.store1.equals(o.parameter1())
-                && this.store2.equals(o.parameter2());
+            return parameter1().equals(o.parameter1())
+                && parameter2().equals(o.parameter2());
         }
         return false;
     }

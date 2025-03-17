@@ -32,8 +32,8 @@ public class Num implements MathObject {
     }
 
     public boolean equals(MathObject m) { // for simplification purposes, not evaluative
-        System.out.println("(num)This obj: " + this.name());
-        System.out.println("(num)That obj: " + m.name());
+        // System.out.println("(num)This obj: " + this.name());
+        // System.out.println("(num)That obj: " + m.name());
         if(m.type().equals(this.type())) {
             return this.n == ((Num)m).value();
         }

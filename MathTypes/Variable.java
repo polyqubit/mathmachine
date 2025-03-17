@@ -54,8 +54,8 @@ public class Variable implements MathObject {
     }
 
     public boolean equals(MathObject m) { // for simplification purposes, not evaluative
-        System.out.println("(var)This obj: " + this.name());
-        System.out.println("(var)That obj: " + m.name());
+        // System.out.println("(var)This obj: " + this.name());
+        // System.out.println("(var)That obj: " + m.name());
         if(m.type().equals(this.type())) {
             return this.token.equals(((Variable)m).name());
         }
