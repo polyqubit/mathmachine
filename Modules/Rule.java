@@ -187,11 +187,14 @@ public class Rule {
         }
     }
 
+    // need some way to change the target without accessing the parent
+    // likely need to switch to c++
     private void subrecursiveapply(MathObject m) {
-        if(traverse(m, search)) {
-            subtraverse(m, replace);
-        }
         if(m.type().equals("Operator")) {
+            Operator o = (Operator)m;
+            if(traverse(o.parameter1(), search)) {
+                subtraverse(m, replace);
+            }
             subrecursiveapply(((Operator)m).parameter1());
             subrecursiveapply(((Operator)m).parameter2());
         }
