@@ -2,8 +2,14 @@
 
 ? algebraic identities
 _L(0) + #A ~ #A
+#A + _L(0) ~ #A
+#A - _L(0) ~ #A
 _L(1) * #A ~ #A
+#A * _L(1) ~ #A
 #A ^ _L(0) ~ _L(1)
 #A ^ _L(1) ~ #A
 #A * #C + #B * #C ~ (#A + #B) * #C
 #A * #B + #A * #C ~ (#B + #C) * #A
+
+#A + #A ~ _L(2) * #A
+#A + #B * #A ~ (#B + _L(2)) * #A
