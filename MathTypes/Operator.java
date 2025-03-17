@@ -7,8 +7,8 @@ public class Operator implements MathObject {
     // should not be used
     public Operator() {
         // System.out.println("Bad constructor used!");
-        store1 = new Null();
-        store2 = new Null();
+        store1 = new Num();
+        store2 = new Num();
     }
 
     public Operator(MathObject a, MathObject b) {

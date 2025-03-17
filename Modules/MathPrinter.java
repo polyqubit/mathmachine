@@ -16,6 +16,13 @@ public class MathPrinter {
                 p(m.value()+"");
                 break;
             default: // assume some sort of function(+,-,cos etc)
+                if(m.type().equals("Expression")) {
+                    Expression e = (Expression)m;
+                    p(e.name());
+                    p("(");
+                    traverse(e.getexpr());
+                    p(")");
+                }
                 if(m.type().equals("Operator")) {
                     Operator o = (Operator)m;
                     p(o.name());

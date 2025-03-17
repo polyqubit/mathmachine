@@ -34,33 +34,44 @@ public class Rule {
     // current target layer, current search(as in this.search) layer
     private boolean traverse(MathObject cur, MathObject s) {
         if (s.name().equals("Null")) {
+            System.out.println("success - found wildcard");
             tempmaths.offer(cur);
             return true;
         }
 
+        // Literal only appears in Rules; must be checked here
+        if (s.name().equals("Literal")) { // searching for a specific number
+            if (s.value() != cur.value()) {
+                System.out.println("failed - wrong literal");
+                return false;
+            }
+            System.out.println("success - correct literal");
+            return true;
+        }
+
         if (!(s.name().equals(cur.name()))) {
+            System.out.println("failed - name difference: " + s.name() + " " + cur.name());
             return false;
         }
 
         if (s.name().equals("Variable")) {
             if (!varmap.containsKey(s.name()) && !varmap.containsValue(cur.name())) {
                 varmap.put(s.name(), cur.name());
+                System.out.println("success - new var pair");
                 return true;
             }
             if (cur.name().equals(varmap.get(s.name()))) {
+                System.out.println("success - found var pair");
                 return true;
             }
+            System.out.println("failed - mismatched var pair");
             return false;
-        }
-
-        if (s.name().equals("Literal")) { // searching for a specific number
-            if (s.value() != cur.value()) {
-                return false;
-            }
         }
 
         else if (s.name().equals("Number")) { // searching for any number
             tempnums.offer(cur);
+            System.out.println("success - new num");
+            return true;
         }
 
         // else if(cur.name().equals(Number")) { // also variable, also functionality for
@@ -74,6 +85,12 @@ public class Rule {
             boolean b1 = traverse(ocur.parameter1(), os.parameter1());
             boolean b2 = traverse(ocur.parameter2(), os.parameter2());
             return (b1 && b2);
+        }
+
+        if (cur.type().equals("Expression")) {
+            Expression ecur = (Expression) cur;
+            Expression es = (Expression) s;
+            return traverse(ecur.getexpr(), es.getexpr());
         }
         // TODO: need case for function
         return false;
@@ -96,6 +113,16 @@ public class Rule {
         // both literal and expression Number search
         // return s.name().equals("Number"); // eg. false if any number except 1
         // }
+
+        if (cur.type().equals("Expression")) {
+            Expression ecur = (Expression) cur;
+            Expression er = (Expression) r;
+            if(er.getexpr().name().equals("Null")) {
+                ecur.setexpr(tempmaths.poll());
+                return;
+            }
+            subtraverse(ecur.getexpr(), er.getexpr());
+        }
 
         if (cur.type().equals("Operator")) {
             Operator ocur = (Operator) cur;

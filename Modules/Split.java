@@ -1,6 +1,7 @@
 package Modules;
 import java.util.*;
 
+import MathTypes.Expression;
 import MathTypes.Literal;
 import MathTypes.MathObject;
 import MathTypes.Null;
@@ -80,7 +81,7 @@ public class Split {
                 temps.clear();
             }
         }
-        return values.get(0);
+        return new Expression(values.get(0));
     }
     public static ArrayList<String> parse(String s, boolean print) {
         ArrayList<String> tokens = new ArrayList<>();
