@@ -1,7 +1,87 @@
 package Modules;
 import java.util.*;
 
+import MathTypes.Literal;
+import MathTypes.MathObject;
+import MathTypes.Null;
+import MathTypes.Op_Add;
+import MathTypes.Op_Div;
+import MathTypes.Op_Mult;
+import MathTypes.Op_Pow;
+import MathTypes.Op_Sub;
+import MathTypes.Variable;
+import MathTypes.Number;
+
 public class Split {
+    public static MathObject convert(String raw) {
+        // ArrayList<MathObject> temp = new ArrayList<>();
+        ArrayList<String> in = parse(raw, false);
+        HashMap<String, Integer> funcs = new HashMap<>();
+
+        funcs.put("_neg", 1);
+        funcs.put("_L",1);
+        funcs.put("_any",0);
+
+        Stack<MathObject> values = new Stack<>();
+        ArrayList<MathObject> temps = new ArrayList<>();
+        for(int i=0;i<in.size();i++) {
+            char c = in.get(i).charAt(0);
+            if(Character.isLetter(c)) {
+                values.push(new Variable(in.get(i)));
+            }
+            else if(Character.isDigit(c)) {
+                values.push(new Number(Double.parseDouble(in.get(i))));
+            }
+            else if(c=='_') {
+                if(funcs.containsKey(in.get(i))) {
+                    int argnum = funcs.get(in.get(i)); // number of args
+                    for(int k=0;k<argnum;k++) { // pops for each argument
+                        temps.add(values.pop());
+                    }
+                    switch(in.get(i)) {
+                        case "_neg":
+                            values.add(new Op_Sub(new Number(0),temps.get(0)));
+                            break;
+                        case "_L":
+                            values.add(new Literal( ((Number)temps.get(0)).value() ));
+                            break;
+                        case "_any":
+                            values.add(new Null());
+                            break;
+                    }
+                    for(int k=0;k<argnum;k++) {
+                        temps.clear();
+                    }
+                }
+                else {
+                    System.out.println("unknown function \"" + in.get(i) + "\"");
+                }
+            }
+            else { // assume that all tokens are binary operators, and that syntax is correct
+                temps.add(values.pop()); // second item(0)
+                temps.add(values.pop()); // first item(1)
+                switch(c) {
+                    case '+':
+                        values.add(new Op_Add(temps.get(1),temps.get(0)));
+                        break;
+                    case '-':
+                        values.add(new Op_Sub(temps.get(1),temps.get(0)));
+                        break;
+                    case '*':
+                        values.add(new Op_Mult(temps.get(1),temps.get(0)));
+                        break;
+                    case '/':
+                        values.add(new Op_Div(temps.get(1),temps.get(0)));
+                        break;
+                    case '^':
+                        values.add(new Op_Pow(temps.get(1),temps.get(0)));
+                        break;
+                }
+                temps.clear();
+            }
+        }
+        return values.get(0);
+    }
     public static ArrayList<String> parse(String s, boolean print) {
         ArrayList<String> tokens = new ArrayList<>();
         ArrayList<String> output = new ArrayList<>();

@@ -15,7 +15,7 @@ public class Simplifier {
         ruleset = new ArrayList<>();
     }
 
-    public void target(MathObject e) {
+    public void targetobj(MathObject e) {
         top = e;
     }
 
@@ -24,11 +24,14 @@ public class Simplifier {
             String line = "";
             line = br.readLine();
             while(line != null) {
-                if (line.charAt(0)=='?') {
+                if ((line.length()>0)&&(line.charAt(0)=='?')) {
+                    line = br.readLine();
+                    System.out.println("\nSkipped line");
                     continue;
                 }
+                System.out.println("Reading: " + line);
                 Rule r = new Rule(line.substring(0,line.indexOf("~")),
-                                  line.substring(line.indexOf("~")));
+                                  line.substring(1+line.indexOf("~")));
                 ruleset.add(r);
                 line = br.readLine();
             }
@@ -36,6 +39,7 @@ public class Simplifier {
         catch(Exception e) {
             System.err.println("error: " + e);
         }
+        System.out.println("Rule count: " + ruleset.size());
     }
 
     // TODO: store previously used Rule to prevent immediate application of its inverse; implement inverses
@@ -55,6 +59,7 @@ public class Simplifier {
                 System.out.println("Exceeded limit of " + max + " steps");
                 return;
             }
+            System.out.println("Step " + c);
         }
     }
 }

@@ -1,10 +1,8 @@
 package Modules;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
 
 import MathTypes.*;
 import MathTypes.Number;
@@ -18,8 +16,8 @@ public class Rule {
 
     // x+1 -> Addition(x,1)
     public Rule(String s, String r) {
-        search = conversion(s);
-        replace = conversion(r);
+        search = Split.convert(s);
+        replace = Split.convert(r);
         tempnums = new LinkedList<>();
         tempmaths = new LinkedList<>();
         varmap = new HashMap<>();
@@ -120,61 +118,5 @@ public class Rule {
     // _L(0) + _N(0) =
     private void substitute(MathObject m) {
         subtraverse(m, replace);
-    }
-
-    private MathObject conversion(String s) {
-        ArrayList<String> in = new ArrayList<>();
-        in = Split.parse(s, false);
-
-        HashMap<String, Integer> funcs = new HashMap<>();
-        funcs.put("_neg", 1);
-
-        Stack<MathObject> values = new Stack<>();
-        ArrayList<MathObject> temps = new ArrayList<>();
-        for (int i = 0; i < in.size(); i++) {
-            char c = in.get(i).charAt(0);
-            if (Character.isLetter(c)) {
-                values.push(new Variable(in.get(i)));
-            } else if (Character.isDigit(c)) {
-                values.push(new Number(Double.parseDouble(in.get(i))));
-            } else if (c == '_') {
-                if (funcs.containsKey(in.get(i))) {
-                    int argnum = funcs.get(in.get(i));
-                    for (int k = 0; k < argnum; k++) { // pops for each argument
-                        temps.add(values.pop());
-                    }
-                    switch (in.get(i)) {
-                        case "neg":
-                            values.add(new Op_Sub(new Number(0), temps.get(0)));
-                            break;
-                    }
-                    for (int k = 0; k < argnum; k++) {
-                        temps.clear();
-                    }
-                }
-            } else { // assume that all tokens are binary operators, and that syntax is correct
-                temps.add(values.pop()); // second item(0)
-                temps.add(values.pop()); // first item(1)
-                switch (c) {
-                    case '+':
-                        values.add(new Op_Add(temps.get(1), temps.get(0)));
-                        break;
-                    case '-':
-                        values.add(new Op_Sub(temps.get(1), temps.get(0)));
-                        break;
-                    case '*':
-                        values.add(new Op_Mult(temps.get(1), temps.get(0)));
-                        break;
-                    case '/':
-                        values.add(new Op_Div(temps.get(1), temps.get(0)));
-                        break;
-                    case '^':
-                        values.add(new Op_Pow(temps.get(1), temps.get(0)));
-                        break;
-                }
-                temps.clear();
-            }
-        }
-        return values.get(0);
     }
 }
